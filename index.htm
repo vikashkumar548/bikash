@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy New Year 2026 | Vikash</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;500;700&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  height:100vh;
+  background: radial-gradient(circle at top,#0f2027,#000);
+  overflow:hidden;
+  font-family:'Poppins',sans-serif;
+  color:#fff;
+  position:relative;
+  cursor:crosshair;
+}
+
+/* Floating Shapes */
+.shape{
+  position:absolute;
+  font-size:20px;
+  opacity:0.8;
+  pointer-events:none;
+  text-shadow:0 0 5px #fff;
+}
+
+/* Card Float Animation */
+@keyframes cardFloat {
+  0% {transform: translate(-50%, -50%) translateY(0px);}
+  50% {transform: translate(-50%, -50%) translateY(-12px);}
+  100% {transform: translate(-50%, -50%) translateY(0px);}
+}
+
+/* Card */
+.card{
+  position:absolute;
+  top:50%;
+  left:50%;
+  z-index:10;
+  width:400px;
+  padding:40px;
+  border-radius:25px;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(18px);
+  box-shadow:0 0 50px rgba(0,0,0,0.7);
+  text-align:center;
+  animation: cardFloat 4s ease-in-out infinite;
+  transform: translate(-50%, -50%);
+}
+
+/* Neon Border */
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:25px;
+  background:linear-gradient(45deg,#ff00cc,#00e5ff,#ffeb3b);
+  z-index:-1;
+  filter:blur(10px);
+  animation: neon 4s linear infinite;
+}
+
+@keyframes neon{
+  0%{filter:hue-rotate(0deg);}
+  100%{filter:hue-rotate(360deg);}
+}
+
+.card:hover{
+  transform: translate(-50%, -50%) scale(1.02) translateY(-5px);
+  transition: transform 0.3s ease-in-out;
+}
+
+h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:28px;
+  margin-bottom:15px;
+  text-shadow:0 0 20px #00e5ff;
+}
+
+.sub{
+  font-size:14px;
+  opacity:0.9;
+  margin-bottom:20px;
+}
+
+/* Countdown */
+.countdown{
+  display:flex;
+  justify-content:space-between;
+  margin:20px 0;
+}
+
+.box{
+  width:80px;
+  padding:12px;
+  border-radius:15px;
+  background:rgba(0,0,0,0.4);
+}
+
+.box span{
+  font-size:24px;
+  font-weight:700;
+  color:#ffeb3b;
+}
+
+.box p{
+  font-size:12px;
+}
+
+/* Input & Button */
+input{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:none;
+  outline:none;
+  margin-top:15px;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(45deg,#ff9800,#ff5722);
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:0.9;
+}
+
+#msg{
+  margin-top:20px;
+  font-size:18px;
+  line-height:1.4;
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow{
+  from{text-shadow:0 0 5px #fff;}
+  to{text-shadow:0 0 20px #ffeb3b;}
+}
+
+/* Footer */
+.footer{
+  margin-top:20px;
+  font-size:12px;
+  opacity:0.8;
+}
+
+/* Fireworks spark */
+.spark{
+  position:absolute;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:0;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>🎆 HAPPY NEW YEAR 2026 🎆</h1>
+  <div class="sub">New beginnings • New dreams • New energy</div>
+
+  <div class="countdown">
+    <div class="box"><span id="d">00</span><p>Days</p></div>
+    <div class="box"><span id="h">00</span><p>Hours</p></div>
+    <div class="box"><span id="m">00</span><p>Minutes</p></div>
+    <div class="box"><span id="s">00</span><p>Seconds</p></div>
+  </div>
+
+  <input type="text" id="name" placeholder="Enter your name">
+  <button onclick="wish()">Create Greeting</button>
+
+  <div id="msg"></div>
+  <div class="footer">Designed by Vikash Kumar 💻✨</div>
+</div>
+
+<script>
+// Floating Shapes all directions
+const shapesArr = ['🎈','⭐','❤️'];
+const shapes = [];
+for(let i=0;i<50;i++){
+  let s = document.createElement('div');
+  s.className = 'shape';
+  s.style.left = Math.random()*100+'vw';
+  s.style.top = Math.random()*100+'vh';
+  s.style.fontSize = (15+Math.random()*25)+'px';
+  s.style.opacity = 0.8;
+  s.innerText = shapesArr[Math.floor(Math.random()*shapesArr.length)];
+  document.body.appendChild(s);
+  shapes.push({
+    el: s,
+    x: parseFloat(s.style.left),
+    y: parseFloat(s.style.top),
+    dx: (Math.random()-0.5)*0.5, // horizontal speed
+    dy: (Math.random()-0.5)*0.5  // vertical speed
+  });
+}
+
+// Animate shapes in all directions
+function animateShapes(){
+  shapes.forEach(obj=>{
+    obj.x += obj.dx;
+    obj.y += obj.dy;
+
+    if(obj.x < 0 || obj.x > 100) obj.dx *= -1;
+    if(obj.y < 0 || obj.y > 100) obj.dy *= -1;
+
+    obj.el.style.left = obj.x + 'vw';
+    obj.el.style.top = obj.y + 'vh';
+  });
+  requestAnimationFrame(animateShapes);
+}
+animateShapes();
+
+// Shapes slightly follow mouse
+document.addEventListener('mousemove', e=>{
+  shapes.forEach((s,i)=>{
+    s.el.style.left = `calc(${s.x}vw + ${(e.clientX-500)/200}px)`;
+    s.el.style.top = `calc(${s.y}vh + ${(e.clientY-300)/200}px)`;
+  });
+});
+
+// Countdown Timer
+const ny = new Date("January 1, 2026 00:00:00").getTime();
+setInterval(()=>{
+  let now=new Date().getTime();
+  let gap=ny-now;
+  document.getElementById('d').innerText = Math.floor(gap/(1000*60*60*24));
+  document.getElementById('h').innerText = Math.floor((gap/(1000*60*60))%24);
+  document.getElementById('m').innerText = Math.floor((gap/(1000*60))%60);
+  document.getElementById('s').innerText = Math.floor((gap/1000)%60);
+},1000);
+
+// Personalized Greeting
+function wish(){
+  let n=document.getElementById("name").value;
+  let msg=document.getElementById("msg");
+  if(n===""){
+    msg.innerHTML="✨ Please enter your name ✨";
+  }else{
+    msg.innerHTML=`🎉 Dear <b>${n}</b>,<br>
+    May 2026 bring <b>success, health & happiness</b> 🌟<br>
+    Keep growing, keep shining 🚀`;
+  }
+}
+
+// Fireworks on click
+function fire(x,y){
+  for(let i=0;i<30;i++){
+    let s=document.createElement('div');
+    s.className='spark';
+    s.style.left=x+'px';
+    s.style.top=y+'px';
+    s.style.background=`hsl(${Math.random()*360},100%,50%)`;
+    let dx=(Math.random()-0.5)*200;
+    let dy=(Math.random()-0.5)*200;
+    s.animate([{transform:`translate(0,0)`},{transform:`translate(${dx}px,${dy}px)`}], {duration:1000, easing:'ease-out'});
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),1000);
+  }
+}
+
+document.addEventListener('click', e=>fire(e.clientX,e.clientY));
+</script>
+
+</body>
+</html>
